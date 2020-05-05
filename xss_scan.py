@@ -332,7 +332,7 @@ if args.attack:
     sys.exit()
 
         
-        #Crawl : -c  or --crawl
+#Crawl : -c  or --crawl
 if args.crawl:
     domain = get_fld(args.url)
     startTime = time.time()
