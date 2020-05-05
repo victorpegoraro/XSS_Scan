@@ -324,17 +324,18 @@ print(f"{CYAN}" + start)
 
 #Get arguments
 
-#Crawl : -c  or --crawl
-if args.crawl:
-    domain = get_fld(args.url)
-    startTime = time.time()
-    print(f"{GREEN}[+] Start crawl: " + domain +"\n")
-    #Crawl page
-    crawl(args.url, args.crawl)
-
 #Attack : -a  or --attack
 if args.attack:
     url = args.url
     startTime = time.time()
     scan_xss(args.url)
     sys.exit()
+
+        
+        #Crawl : -c  or --crawl
+if args.crawl:
+    domain = get_fld(args.url)
+    startTime = time.time()
+    print(f"{GREEN}[+] Start crawl: " + domain +"\n")
+    #Crawl page
+    crawl(args.url, args.crawl)
