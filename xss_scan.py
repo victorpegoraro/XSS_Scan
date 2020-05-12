@@ -37,14 +37,15 @@ header = """
 
 #Set arguments
 des = """ 
-    Description: security tool for XSS(Cross site script) and crawl site
-    --------------------------------------------------------------------
+    Description: security tool for XSS(Cross site script) and reconnaissance site
+    -----------------------------------------------------------------------------
     """
 parser = argparse.ArgumentParser(description=des)
 parser.add_argument("url", help="Define the url EX: https://www.yourwebsite.com " , type=str)
 parser.add_argument("-c", "--crawl", action="store", dest='crawl' , type=int, default= 3 , help="Crawl pages, set number of pages" , )
+parser.add_argument("-s", "--sub", action="store_true", help="Find subdomains")
 parser.add_argument("-a", "--attack", action="store_true", help="Test payloads on web page")
-parser.add_argument("-r", "--report" ,action="store_true", help="Write the results in a file: report.txt ")
+parser.add_argument("-r", "--report" ,action="store_true", help="Write the results in reports/report.txt ")
 args = parser.parse_args()
 
 
@@ -53,10 +54,6 @@ def is_valid(url):
     parsed = urlparse(url)
     return bool(parsed.netloc) and bool(parsed.scheme)
 
-# Function to get the top level domain
-def get_domain_name ( url ):
-    domain_name = get_fld(url)
-    return domain_name
 
 #Storage all urls
 urls = set()
@@ -135,7 +132,7 @@ def crawl(url, max_urls):
             #Write report if set
             if args.report:
                 print(f"{GREEN}[+] Reporting...{RESET}")
-                report = open("report.txt", "w") #Create document 
+                report = open("reports/report.txt", "w") #Create document 
                 report.write(header) #Write header in document
                 report.write("\n")
                 report.write("Crawl Report")
@@ -158,6 +155,54 @@ def crawl(url, max_urls):
 
         #Keep crawling 
         crawl(link, max_urls)
+
+
+def subdomains(domain):
+
+    #Lista de subdominios
+    subdomains = [  "vpn", "sandbox", "adwords", "feeds", "id", "europe", "downloads", "earth" ,"documents" ,"wap", 
+                    "jobs", "finance" ,"realy", "wave", "security", "encrypted", "code", "books", "catolog", "map",
+                    "health", "plus", "archive", "chat", "payments", "survey", "forms", "asia", "api", "mail", "drive",
+                    "d", "enterprise", "pack", "tv", "apps", "services", "privacy", "uploads", "image", "scholar",
+                    "trends", "support", "search", "tools", "documentsap", "downloads", "play", "web", "games",
+                    "directory", "express", "video", "register", "local", "cloud", "fusion", "print", "m" ,"translate",
+                    "gsuite", "environment", "sms", "alerts", "reader", "blog", "home", "ads", "docs", "myaccount",
+                    "accounts", "news", "hire", "doc", "sites", "issuetracker", "console", "events", "admin", "email",
+                    "opt", "locale", "store", "developers", "calendar", "america", "ns", "ns1", "time", "ns3"]
+    links = []
+    total = 0
+    for subdomain in subdomains:
+        # construct the url
+        url = f"http://{subdomain}.{domain}"
+        
+        try:
+            # if this raises an ERROR, that means the subdomain does not exist
+            requests.get(url)
+        except requests.ConnectionError:
+            # if the subdomain does not exist, just pass, print nothing
+            pass
+        else:
+            total = total + 1
+            print(f"{GREEN}[+] Discovered subdomain:", url , RESET)
+            links.append(url)
+
+    print(f"{YELLOW}[!] Find " + str(total) + f" urls {RESET}")
+
+    #If report is set write a document
+    if args.report:
+        print(f"{GREEN}[+] Reporting...{RESET}")
+        report = open("reports/report.txt", "w") #create document
+        report.write(header) #Write header in document
+        report.write("\n")
+        report.write("Subdomains report \n")
+        report.write("[!] Subdomains for " + url + "\n")
+        report.write("\n")
+        for link in links:
+            #Write scripts injected in page 
+            report.write(str(link) + "\n")
+
+        report.close() #Close document
+
 
 
 #Return forms from url
@@ -294,7 +339,7 @@ def scan_xss(url):
     #If report is set write a document
     if args.report:
         print(f"{GREEN}[+] Reporting...{RESET}")
-        report = open("report.txt", "w") #create document
+        report = open("reports/report.txt", "w") #create document
         report.write(header) #Write header in document
         report.write("\n")
         report.write("Cross site Script injection report \n")
@@ -324,14 +369,21 @@ print(f"{CYAN}" + start)
 
 #Get arguments
 
+
 #Attack : -a  or --attack
 if args.attack:
-    url = args.url
     startTime = time.time()
     scan_xss(args.url)
     sys.exit()
 
-        
+#Subdomains : -s  or --sub
+if args.sub:
+    domain = get_fld(args.url)
+    startTime = time.time()
+    print(f"{GREEN}[+] Scan subdomains: " + domain +"\n")
+    subdomains(domain)
+    sys.exit()
+
 #Crawl : -c  or --crawl
 if args.crawl:
     domain = get_fld(args.url)
