@@ -132,7 +132,7 @@ def crawl(url, max_urls):
             #Write report if set
             if args.report:
                 print(f"{GREEN}[+] Reporting...{RESET}")
-                report = open("reports/report.txt", "w") #Create document 
+                report = open("report.txt", "w") #Create document 
                 report.write(header) #Write header in document
                 report.write("\n")
                 report.write("Crawl Report")
@@ -191,7 +191,7 @@ def subdomains(domain):
     #If report is set write a document
     if args.report:
         print(f"{GREEN}[+] Reporting...{RESET}")
-        report = open("reports/report.txt", "w") #create document
+        report = open("report.txt", "w") #create document
         report.write(header) #Write header in document
         report.write("\n")
         report.write("Subdomains report \n")
@@ -339,7 +339,7 @@ def scan_xss(url):
     #If report is set write a document
     if args.report:
         print(f"{GREEN}[+] Reporting...{RESET}")
-        report = open("reports/report.txt", "w") #create document
+        report = open("report.txt", "w") #create document
         report.write(header) #Write header in document
         report.write("\n")
         report.write("Cross site Script injection report \n")
