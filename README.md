@@ -21,12 +21,16 @@ Have 3 modules
 1 - Crawler:
 
  Find links in page, you can set numbers of page to find links
+
+2 - Subdomains:
+
+ Find subdomains from url
  
-2 - Attack:
+3 - Attack:
 
  Inject payloads after find forms in page
  
-3 - Report:
+4 - Report:
 
  After tests, write a report to analize your results
  
