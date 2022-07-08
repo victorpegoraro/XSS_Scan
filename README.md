@@ -1,43 +1,41 @@
-# XSS_Scan
-XSS injection tool
+<h1 align="left">XSS_Scan</h1>
 
-This tool was create to learn propose, use for test and study.
------------------------------------------------------------------
-LIBS:
+###
 
-argparse
+<p align="left">Cross site script injection tool</p>
 
-urllib
+###
 
-colorama
+<div align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="40" width="52" alt="python logo"  />
+</div>
 
-BeautifulSoup
+###
 
-tld
+<h2 align="left">Libs</h2>
 
------------------------------------------------------------------
-Have 3 modules
+###
 
-1 - Crawler:
+<p align="left">argparse<br><br>urllib<br><br>colorama<br><br>BeautifulSoup<br><br>tld</p>
 
- Find links in page, you can set numbers of page to find links
+###
 
-2 - Subdomains:
+<h2 align="left">Modules</h2>
 
- Find subdomains from url
- 
-3 - Attack:
+###
 
- Inject payloads after find forms in page
- 
-4 - Report:
+<p align="left">1 - Crawler:<br><br>Find links in page, you can set numbers of page to find links<br><br>2 - Subdomains:<br><br>Find subdomains from url<br><br>3 - Attack:<br><br>Inject payloads after find forms in page<br><br>4 - Report:<br><br>After tests, write a report to analize your results</p>
 
- After tests, write a report to analize your results
- 
- -----------------------------------------------------------------
- 
- You can see all payloads in payloads.txt
- 
- -----------------------------------------------------------------
- 
-Knowledge is power !
+###
+
+<h3 align="left">You can see all payloads in payloads.txt</h3>
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+<h3 align="left">This tool was create to learn propose, use for test and study.</h3>
+
+###
+
+<h2 align="left">Knowledge is power !</h2>
+
+###
